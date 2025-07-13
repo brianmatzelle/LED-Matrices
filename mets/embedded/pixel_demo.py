@@ -10,7 +10,7 @@ from adafruit_display_text.label import Label
 from adafruit_matrixportal.matrixportal import MatrixPortal
 
 # Matrix dimensions (adjust these to match your actual matrix)
-MATRIX_WIDTH = 64
+MATRIX_WIDTH = 32
 MATRIX_HEIGHT = 32
 
 class PixelDemo:

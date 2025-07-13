@@ -14,6 +14,10 @@ sync_file() {
         return
     elif [[ $(basename "$file") == "sync_to_circuitpy.sh" ]]; then
         return
+    elif [[ $(basename "$file") == "settings.toml.template" ]]; then
+        return
+    elif [[ "$rel_path" == "archive/"* ]]; then
+        return
     fi
     
     # Create target directory if needed
