@@ -1,0 +1,8 @@
+# WiFi Configuration
+# Replace with your actual WiFi credentials
+CIRCUITPY_WIFI_SSID = "YOUR_WIFI_SSID"
+CIRCUITPY_WIFI_PASSWORD = "YOUR_WIFI_PASSWORD"
+
+# Optional: Set timezone for accurate time display
+# Examples: "America/New_York", "America/Chicago", "America/Denver", "America/Los_Angeles"
+timezone = "America/New_York"
