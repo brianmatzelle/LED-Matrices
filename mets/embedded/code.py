@@ -170,16 +170,16 @@ class PixelDemo:
         if MATRIX_WIDTH >= 32 and MATRIX_HEIGHT >= 16:
             # Create text labels for key coordinates
             group = displayio.Group()
-            font = "fonts/Roboto-Medium-7pt.bdf"
+            font = bitmap_font.load_font("fonts/Roboto-Medium-7pt.bdf")
             
             # Top-left (0,0)
-            label_00 = Label(terminalio.FONT, text="0,0", color=0xFF0000)
+            label_00 = Label(font, text="0,0", color=0xFF0000)
             label_00.x = 1
             label_00.y = 6
             group.append(label_00)
             
             # Top-right
-            label_tr = Label(terminalio.FONT, text=f"{MATRIX_WIDTH-1},0", color=0x00FF00)
+            label_tr = Label(font, text=f"{MATRIX_WIDTH-1},0", color=0x00FF00)
             label_tr.x = MATRIX_WIDTH - 20
             label_tr.y = 6
             group.append(label_tr)
