@@ -170,6 +170,7 @@ class PixelDemo:
         if MATRIX_WIDTH >= 32 and MATRIX_HEIGHT >= 16:
             # Create text labels for key coordinates
             group = displayio.Group()
+            font = "fonts/Roboto-Medium-7pt.bdf"
             
             # Top-left (0,0)
             label_00 = Label(terminalio.FONT, text="0,0", color=0xFF0000)
