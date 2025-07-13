@@ -1,5 +1,4 @@
-# SPDX-FileCopyrightText: 2024 Brian Matzelle
-#
+# SPDX-FileCopyrightText: 2025 Brian Matzelle
 # SPDX-License-Identifier: MIT
 
 # Mets Game Score Display
@@ -35,12 +34,11 @@ METS_TEAM_ID = 121
 
 # Get today's date for the API call
 import rtc
-from datetime import datetime
 
 def get_today_date():
     """Get today's date in YYYY-MM-DD format"""
     try:
-        # Get current time
+        # Get current time from RTC (should be set by network.get_local_time())
         current_time = rtc.RTC().datetime
         year = current_time.tm_year
         month = current_time.tm_mon
