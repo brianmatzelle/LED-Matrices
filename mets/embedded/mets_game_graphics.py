@@ -40,13 +40,17 @@ class MetsGameGraphics(displayio.Group):
         
         # Load fonts (using smaller fonts for the compact display)
         try:
-            # Try to load fonts from the weather directory
-            small_font_path = "../weather/fonts/Arial-12.bdf"
-            medium_font_path = "../weather/fonts/Arial-14.bdf"
+            # Try to load fonts from the fonts directory
+            # small_font_path = "fonts/Arial-12.bdf"
+            # medium_font_path = "fonts/Arial-14.bdf"
+            small_font_path = "fonts/Roboto-Medium-5pt.bdf"
+            medium_font_path = "fonts/Roboto-Medium-6pt.bdf"
             self.small_font = bitmap_font.load_font(small_font_path)
             self.medium_font = bitmap_font.load_font(medium_font_path)
-        except:
-            # Fallback to built-in font if weather fonts aren't available
+            print("Custom fonts loaded successfully")
+        except Exception as e:
+            # Fallback to built-in font if fonts aren't available
+            print(f"Font loading failed: {e}, using built-in font")
             self.small_font = displayio.FONT
             self.medium_font = displayio.FONT
         
@@ -90,13 +94,13 @@ class MetsGameGraphics(displayio.Group):
         """Create text labels for game information"""
         # Score display - positioned to the right of the logo
         self.score_label = Label(self.medium_font, text="0-0", color=SCORE_COLOR)
-        self.score_label.x = 24
+        self.score_label.x = 20  # Moved left from 24
         self.score_label.y = 8
         self._score_group.append(self.score_label)
         
         # Team matchup display
         self.teams_label = Label(self.small_font, text="vs TBD", color=TEAM_COLOR)
-        self.teams_label.x = 24
+        self.teams_label.x = 20  # Moved left from 24
         self.teams_label.y = 20
         self._info_group.append(self.teams_label)
         
@@ -122,45 +126,59 @@ class MetsGameGraphics(displayio.Group):
             home_score = game_data.get("home_score", 0)
             away_score = game_data.get("away_score", 0)
             
+            # Ensure scores are integers
+            if home_score is None:
+                home_score = 0
+            if away_score is None:
+                away_score = 0
+            
             if game_data["is_mets_home"]:
                 # Mets are home team
-                self.score_label.text = f"{away_score}-{home_score}"
+                score_text = f"{away_score}-{home_score}"
             else:
                 # Mets are away team
-                self.score_label.text = f"{home_score}-{away_score}"
+                score_text = f"{home_score}-{away_score}"
+                
+            print(f"Setting score text to: '{score_text}'")
+            self.score_label.text = score_text
             
             # Update team matchup
             opponent = game_data["away_team"] if game_data["is_mets_home"] else game_data["home_team"]
             # Shorten team names for display
             opponent_short = self._shorten_team_name(opponent)
             home_away = "vs" if game_data["is_mets_home"] else "@"
-            self.teams_label.text = f"{home_away} {opponent_short}"
+            teams_text = f"{home_away} {opponent_short}"
+            print(f"Setting teams text to: '{teams_text}'")
+            self.teams_label.text = teams_text
             
             # Update status
             status = game_data["status"]
             inning = game_data.get("inning", "")
             
             if status == "Final":
-                self.status_label.text = "Final"
+                status_text = "Final"
                 self.status_label.color = METS_ORANGE
             elif status in ["In Progress", "Delayed"]:
                 if inning:
-                    self.status_label.text = inning
+                    status_text = inning
                 else:
-                    self.status_label.text = "Live"
+                    status_text = "Live"
                 self.status_label.color = METS_ORANGE
             elif status in ["Scheduled", "Warmup", "Pre-Game"]:
-                self.status_label.text = "Today"
+                status_text = "Today"
                 self.status_label.color = STATUS_COLOR
             elif status == "No Game":
-                self.status_label.text = "No Game"
+                status_text = "No Game"
                 self.status_label.color = INNING_COLOR
             elif status == "Error":
-                self.status_label.text = "Error"
+                status_text = "Error"
                 self.status_label.color = ERROR_COLOR
             else:
-                self.status_label.text = status[:8]  # Truncate long status
+                status_text = status[:9]  # Truncate long status
                 self.status_label.color = STATUS_COLOR
+            
+            print(f"Setting status text to: '{status_text}'")
+            self.status_label.text = status_text
             
             # Update the display
             self.display.root_group = self.root_group

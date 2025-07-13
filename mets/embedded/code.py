@@ -43,10 +43,14 @@ def get_today_date():
         year = current_time.tm_year
         month = current_time.tm_mon
         day = current_time.tm_mday
-        return f"{year:04d}-{month:02d}-{day:02d}"
-    except:
+        date_str = f"{year:04d}-{month:02d}-{day:02d}"
+        print(f"Using RTC date: {date_str}")
+        return date_str
+    except Exception as e:
         # Fallback to a default date if RTC isn't available
-        return "2024-07-12"
+        fallback_date = "2025-01-15"  # Updated to a more recent date
+        print(f"RTC failed ({e}), using fallback date: {fallback_date}")
+        return fallback_date
 
 # Set up API endpoint for MLB schedule
 def get_data_source():
@@ -95,8 +99,15 @@ def parse_game_data(game):
     
     home_team = game["teams"]["home"]["team"]["name"]
     away_team = game["teams"]["away"]["team"]["name"]
-    home_score = game["teams"]["home"].get("score", 0)
-    away_score = game["teams"]["away"].get("score", 0)
+    home_score = game["teams"]["home"].get("score")
+    away_score = game["teams"]["away"].get("score")
+    
+    # Handle None scores (game hasn't started or no score data)
+    if home_score is None:
+        home_score = 0
+    if away_score is None:
+        away_score = 0
+    
     game_status = game["status"]["detailedState"]
     
     # Check if Mets are home team
@@ -139,13 +150,16 @@ while True:
             print(f"API URL: {DATA_SOURCE}")
             
             value = network.fetch_data(DATA_SOURCE, json_path=DATA_LOCATION)
-            print("Raw game data:", value)
+            print(f"Raw game data: {value}")
+            print(f"Number of games found: {len(value) if value else 0}")
             
             # Find the Mets game
             mets_game = find_mets_game(value)
-            parsed_game = parse_game_data(mets_game)
+            print(f"Mets game found: {mets_game is not None}")
             
-            print("Parsed game data:", parsed_game)
+            parsed_game = parse_game_data(mets_game)
+            print(f"Parsed game data: {parsed_game}")
+            
             gfx.display_game(parsed_game)
             game_refresh = time.monotonic()
             

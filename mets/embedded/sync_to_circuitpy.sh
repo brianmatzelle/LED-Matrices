@@ -12,6 +12,8 @@ sync_file() {
     # Skip hidden files and temp files
     if [[ $(basename "$file") == .* ]] || [[ $(basename "$file") == *.tmp ]]; then
         return
+    elif [[ $(basename "$file") == "sync_to_circuitpy.sh" ]]; then
+        return
     fi
     
     # Create target directory if needed
