@@ -8,6 +8,7 @@ import board
 import terminalio
 from adafruit_display_text.label import Label
 from adafruit_matrixportal.matrixportal import MatrixPortal
+from adafruit_bitmap_font import bitmap_font
 
 # Matrix dimensions (adjust these to match your actual matrix)
 MATRIX_WIDTH = 32
@@ -170,27 +171,28 @@ class PixelDemo:
         if MATRIX_WIDTH >= 32 and MATRIX_HEIGHT >= 16:
             # Create text labels for key coordinates
             group = displayio.Group()
+            font = bitmap_font.load_font("fonts/Roboto-Medium-7pt.bdf")
             
             # Top-left (0,0)
-            label_00 = Label(terminalio.FONT, text="0,0", color=0xFF0000)
+            label_00 = Label(font, text="0,0", color=0xFF0000)
             label_00.x = 1
             label_00.y = 6
             group.append(label_00)
             
             # Top-right
-            label_tr = Label(terminalio.FONT, text=f"{MATRIX_WIDTH-1},0", color=0x00FF00)
+            label_tr = Label(font, text=f"{MATRIX_WIDTH-1},0", color=0x00FF00)
             label_tr.x = MATRIX_WIDTH - 20
             label_tr.y = 6
             group.append(label_tr)
             
             # Bottom-left
-            label_bl = Label(terminalio.FONT, text=f"0,{MATRIX_HEIGHT-1}", color=0x0000FF)
+            label_bl = Label(font, text=f"0,{MATRIX_HEIGHT-1}", color=0x0000FF)
             label_bl.x = 1
             label_bl.y = MATRIX_HEIGHT - 2
             group.append(label_bl)
             
             # Bottom-right
-            label_br = Label(terminalio.FONT, text=f"{MATRIX_WIDTH-1},{MATRIX_HEIGHT-1}", color=0xFFFF00)
+            label_br = Label(font, text=f"{MATRIX_WIDTH-1},{MATRIX_HEIGHT-1}", color=0xFFFF00)
             label_br.x = MATRIX_WIDTH - 30
             label_br.y = MATRIX_HEIGHT - 2
             group.append(label_br)
