@@ -18,15 +18,15 @@ image = Image.open(IMAGE_PATH)
 # get original dimensions
 width, height = image.size
 
-# crop to center square using the smallest dimension
-min_dimension = min(width, height)
-left = (width - min_dimension) // 2
-top = (height - min_dimension) // 2
-right = left + min_dimension
-bottom = top + min_dimension
+# # crop to center square using the smallest dimension
+# min_dimension = min(width, height)
+# left = (width - min_dimension) // 2
+# top = (height - min_dimension) // 2
+# right = left + min_dimension
+# bottom = top + min_dimension
 
-# crop the image to the center square
-image = image.crop((left, top, right, bottom))
+# # crop the image to the center square
+# image = image.crop((left, top, right, bottom))
 
 # resize image to match LED matrix resolution
 image = image.resize((LED_MATRIX_WIDTH, LED_MATRIX_HEIGHT))
