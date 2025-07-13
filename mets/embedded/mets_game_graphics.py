@@ -41,10 +41,8 @@ class MetsGameGraphics(displayio.Group):
         # Load fonts (using smaller fonts for the compact display)
         try:
             # Try to load fonts from the fonts directory
-            # small_font_path = "fonts/Arial-12.bdf"
-            # medium_font_path = "fonts/Arial-14.bdf"
             small_font_path = "fonts/Roboto-Medium-5pt.bdf"
-            medium_font_path = "fonts/Roboto-Medium-6pt.bdf"
+            medium_font_path = "fonts/Roboto-Medium-7pt.bdf"
             self.small_font = bitmap_font.load_font(small_font_path)
             self.medium_font = bitmap_font.load_font(medium_font_path)
             print("Custom fonts loaded successfully")
