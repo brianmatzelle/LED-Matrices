@@ -6,6 +6,7 @@ import time
 import displayio
 from adafruit_display_text.label import Label
 from adafruit_bitmap_font import bitmap_font
+from os import getenv
 
 # Colors for different elements
 METS_BLUE = 0x002D72
@@ -16,8 +17,15 @@ STATUS_COLOR = 0x9000FF
 INNING_COLOR = 0xCCCCCC
 ERROR_COLOR = 0xFF0000
 
+MATRIX_WIDTH = int(getenv("MATRIX_WIDTH"))
+MATRIX_HEIGHT = int(getenv("MATRIX_HEIGHT"))
+
 # Get the current working directory
 cwd = ("/" + __file__).rsplit("/", 1)[0]
+
+logo_spritesheet = cwd + "/logo.bmp"
+logo_width = 32
+logo_height = 32
 
 class MetsGameGraphics(displayio.Group):
     def __init__(self, display):
@@ -70,14 +78,17 @@ class MetsGameGraphics(displayio.Group):
     def _load_logo(self):
         """Load and display the Mets logo"""
         try:
-            logo_bitmap = displayio.OnDiskBitmap("logo.bmp")
+            logo_bitmap = displayio.OnDiskBitmap(logo_spritesheet)
             logo_sprite = displayio.TileGrid(
                 logo_bitmap,
-                pixel_shader=logo_bitmap.pixel_shader
+                pixel_shader=logo_bitmap.pixel_shader,
+                tile_width=logo_width,
+                tile_height=logo_height
             )
             # Position logo in the top-left corner
             logo_sprite.x = 0
             logo_sprite.y = 0
+            print(f"\n\nLogo position: {logo_sprite.x}, {logo_sprite.y}\n\n")
             self._logo_group.append(logo_sprite)
             print("Logo loaded successfully")
         except Exception as e:

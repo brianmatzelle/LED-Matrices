@@ -5,10 +5,11 @@
 import time
 import displayio
 from adafruit_matrixportal.matrixportal import MatrixPortal
+from os import getenv
 
 # Matrix dimensions (adjust these to match your actual matrix)
-MATRIX_WIDTH = 32
-MATRIX_HEIGHT = 32
+MATRIX_WIDTH = getenv("MATRIX_WIDTH")
+MATRIX_HEIGHT = getenv("MATRIX_HEIGHT")
 
 class SimplePixelTest:
     def __init__(self):

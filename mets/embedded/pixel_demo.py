@@ -9,10 +9,11 @@ import terminalio
 from adafruit_display_text.label import Label
 from adafruit_matrixportal.matrixportal import MatrixPortal
 from adafruit_bitmap_font import bitmap_font
+from os import getenv
 
 # Matrix dimensions (adjust these to match your actual matrix)
-MATRIX_WIDTH = 32
-MATRIX_HEIGHT = 32
+MATRIX_WIDTH = getenv("MATRIX_WIDTH")
+MATRIX_HEIGHT = getenv("MATRIX_HEIGHT")
 
 class PixelDemo:
     def __init__(self):

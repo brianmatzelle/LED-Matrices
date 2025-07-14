@@ -6,3 +6,9 @@ CIRCUITPY_WIFI_PASSWORD = "YOUR_WIFI_PASSWORD"
 # Optional: Set timezone for accurate time display
 # Examples: "America/New_York", "America/Chicago", "America/Denver", "America/Los_Angeles"
 timezone = "America/New_York"
+
+ADAFRUIT_AIO_USERNAME = "your_adafruit_username"
+ADAFRUIT_AIO_KEY      = "xxxxxxxxx"
+
+MATRIX_WIDTH = 64
+MATRIX_HEIGHT = 64
