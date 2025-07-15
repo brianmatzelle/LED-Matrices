@@ -11,4 +11,4 @@ ADAFRUIT_AIO_USERNAME = "your_adafruit_username"
 ADAFRUIT_AIO_KEY      = "xxxxxxxxx"
 
 MATRIX_WIDTH = 64
-MATRIX_HEIGHT = 64
+MATRIX_HEIGHT = 32
